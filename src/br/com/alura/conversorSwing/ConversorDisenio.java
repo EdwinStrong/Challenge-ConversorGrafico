@@ -16,10 +16,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ConversorIDisenio {
+public class ConversorDisenio {
 
 	private JFrame frame;
-	private JTextArea txtNombre;
 	/**
 	 * Launch the application.
 	 */
@@ -28,7 +27,7 @@ public class ConversorIDisenio {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ConversorIDisenio window = new ConversorIDisenio();
+					ConversorDisenio window = new ConversorDisenio();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +40,7 @@ public class ConversorIDisenio {
 	/**
 	 * Create the application.
 	 */
-	public ConversorIDisenio() {
+	public ConversorDisenio() {
 		initialize();
 	}
 
@@ -50,19 +49,19 @@ public class ConversorIDisenio {
 	 */
 	public void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 345, 300);
+		frame.setBounds(100, 100, 418, 315);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Menu principal");
 		
 		JLabel lblNewLabel = new JLabel("Seleccione ");
-		lblNewLabel.setBounds(10, 36, 59, 14);
+		lblNewLabel.setBounds(29, 36, 94, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		String[] opciones = {"Conversor de monedas", "Conversor de temperatura"};
-		JComboBox cbxTipoConversion = new JComboBox();
+		JComboBox<String> cbxTipoConversion = new JComboBox<String>();
 		cbxTipoConversion.setModel(new DefaultComboBoxModel<>(opciones));
-		cbxTipoConversion.setBounds(82, 32, 160, 22);
+		cbxTipoConversion.setBounds(146, 32, 160, 22);
 		
 		frame.getContentPane().add(cbxTipoConversion);
 		
@@ -71,19 +70,19 @@ public class ConversorIDisenio {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(cbxTipoConversion.getSelectedItem().toString() == opciones[0]) {//Formulario de conversor de moneda.
-					SwingConversorTemperatura conversor = new SwingConversorTemperatura();
+					SwingConversorMonedas conversor = new SwingConversorMonedas();
 					conversor.frame.setVisible(true);//Abrir el form
-					
-					ConversorIDisenio thisForm = new ConversorIDisenio();
-					thisForm.frame.setVisible(false);
+					ConversorDisenio thisForm = new ConversorDisenio();
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Ese form no ha sido creado.");
+					SwingConversorTemperatura conversor = new SwingConversorTemperatura();
+					conversor.frame.setVisible(true);//Abrir el form
+					ConversorDisenio thisForm = new ConversorDisenio();
 				}
 			}
 		});
 			
-		btnNewButton.setBounds(153, 72, 89, 23);
+		btnNewButton.setBounds(153, 72, 116, 31);
 		frame.getContentPane().add(btnNewButton);
 	}
 }

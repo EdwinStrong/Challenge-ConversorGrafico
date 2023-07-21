@@ -1,12 +1,14 @@
 package br.com.alura.monedas;
 
+import java.util.HashMap;
+import java.util.List;
+
 import br.com.alura.excepciones.MonedaException;
 
 public class MonedaValor {
 	
 	//Valor de 1 peso mexicano a respectiva moneda
 	private float[] valorMoneda = {0.0584233f, 0.0534826f, 0.0458863f, 8.44455f, 76.81f};
-	
 	/**
 	 * Realiza la conversión de pesos mexicanos a la moneda:
 	 * 0. Dolar,
