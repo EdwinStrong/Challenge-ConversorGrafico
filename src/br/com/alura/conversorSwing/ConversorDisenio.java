@@ -1,15 +1,9 @@
 package br.com.alura.conversorSwing;
 
 import java.awt.EventQueue;
-import java.awt.Frame;
-import java.awt.Window;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -72,12 +66,10 @@ public class ConversorDisenio {
 				if(cbxTipoConversion.getSelectedItem().toString() == opciones[0]) {//Formulario de conversor de moneda.
 					SwingConversorMonedas conversor = new SwingConversorMonedas();
 					conversor.frame.setVisible(true);//Abrir el form
-					ConversorDisenio thisForm = new ConversorDisenio();
 				}
 				else {
 					SwingConversorTemperatura conversor = new SwingConversorTemperatura();
 					conversor.frame.setVisible(true);//Abrir el form
-					ConversorDisenio thisForm = new ConversorDisenio();
 				}
 			}
 		});

@@ -1,6 +1,5 @@
 package br.com.alura.monedas;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +44,7 @@ public class Metodos {
 	}
 	
 	/**
-	 * Este método define si una cadena de caracteres contiene solo números..
+	 * Este método define si una cadena de caracteres contiene solo números.
 	 * @param palabra
 	 * @return True SI la cadena de caracteres contiene SOLO numeros. False si NO contiene SOLO numeros.
 	 */
