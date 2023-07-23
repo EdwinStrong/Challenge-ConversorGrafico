@@ -22,6 +22,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JTextPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SwingConversorMonedas {
 
@@ -71,7 +75,7 @@ public class SwingConversorMonedas {
 			String variable = "De pesos a "+nombreMonedas[i].toString().toLowerCase().replace("_", " ");
 			opcionesConversion.add(variable);
 			convertirDinero.put(i, variable);
-
+			
 			variable="De "+nombreMonedas[i].toString().toLowerCase().replace("_", " ")+" a pesos";
 			opcionesConversionInversa.add(variable);
 			convertirDinero.put(i+tamanioOpciones, variable);//Se mantiene una simetría de tamanioOpciones (Que significaría lo inverso)
@@ -79,51 +83,76 @@ public class SwingConversorMonedas {
 
 		//Frame
 		frame = new JFrame();
-		frame.setBounds(100, 100, 796, 345);
+		frame.getContentPane().setFont(new Font("Arial", Font.PLAIN, 11));
+		frame.getContentPane().setBackground(new Color(0, 102, 0));
+		frame.setBounds(100, 100, 740, 345);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Conversor de monedas.");
-		frame.getContentPane().setLayout(null);
 
 		//Label
 		JLabel lblNewLabel = new JLabel("Pesos");
+		lblNewLabel.setBounds(33, 136, 111, 13);
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(126, 72, 106, 17);
-		frame.getContentPane().add(lblNewLabel);
 
 
 		//Combobox
 		JComboBox<Object> cbxOpciones =  new JComboBox<Object>();
-		cbxOpciones.setBounds(224, 42, 155, 22);
-		frame.getContentPane().add(cbxOpciones);
+		
+		cbxOpciones.setBounds(154, 112, 178, 21);
+		cbxOpciones.setFont(new Font("Arial", Font.PLAIN, 11));
+		cbxOpciones.setForeground(new Color(0, 0, 102));
+		cbxOpciones.setBackground(new Color(255, 255, 255));
 		cbxOpciones.setModel(new DefaultComboBoxModel<>(opcionesConversion.toArray()));
-
+		
 		//Label
 		JLabel lblSeleccioneElTipo = new JLabel("Tipo de conversión");
+		lblSeleccioneElTipo.setBounds(33, 120, 122, 13);
+		lblSeleccioneElTipo.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblSeleccioneElTipo.setForeground(new Color(255, 255, 255));
 		lblSeleccioneElTipo.setVerticalAlignment(SwingConstants.TOP);
 		lblSeleccioneElTipo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccioneElTipo.setBounds(102, 46, 117, 17);
-		frame.getContentPane().add(lblSeleccioneElTipo);
 		
 		JLabel lblMensajeError_1 = new JLabel("No es un número.");
+		lblMensajeError_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblMensajeError_1.setBounds(528, 153, 85, 14);
 		lblMensajeError_1.setForeground(Color.RED);
-		lblMensajeError_1.setBounds(492, 96, 155, 14);
 		lblMensajeError_1.setVisible(false);
-		frame.getContentPane().add(lblMensajeError_1);
 		
 		JComboBox<Object> cbxConversionInversa = new JComboBox<Object>();
-		cbxConversionInversa.setBounds(482, 42, 155, 22);
-		frame.getContentPane().add(cbxConversionInversa);
+		cbxConversionInversa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtCantidadDivisaPesos.getText().isEmpty()) {
+					conversionDivisas(!conversion_a_Peso, txtCantidadDivisaPesos,txtCantidadPesosDivisa, convertirDinero, cbxConversionInversa);
+				}
+			}
+		});
+		cbxConversionInversa.setFont(new Font("Arial", Font.PLAIN, 11));
+		cbxConversionInversa.setBounds(501, 111, 185, 22);
+		cbxConversionInversa.setBackground(new Color(245, 255, 250));
 		cbxConversionInversa.setModel(new DefaultComboBoxModel<>(opcionesConversionInversa.toArray()));
 
+		//cbx de pesos a divisa
+		cbxOpciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtCantidadPesosDivisa.getText().isEmpty()) {
+					conversionDivisas(conversion_a_Peso,txtCantidadPesosDivisa, txtCantidadDivisaPesos, convertirDinero, cbxOpciones);
+				}
+			}
+		});
+		
 		JLabel lblMensajeError = new JLabel("No es un número.");
-		lblMensajeError.setForeground(new Color(255, 0, 0));
-		lblMensajeError.setBounds(248, 96, 106, 14);
+		lblMensajeError.setBounds(179, 152, 85, 13);
+		lblMensajeError.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblMensajeError.setForeground(new Color(255, 255, 255));
 		lblMensajeError.setVisible(false);;
-		frame.getContentPane().add(lblMensajeError);
 
 		//Textbox que almacena la cantidad de pesos a convertir a divisa.
 		txtCantidadPesosDivisa = new JTextField();
+		txtCantidadPesosDivisa.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtCantidadPesosDivisa.setBounds(154, 133, 178, 20);
 		txtCantidadPesosDivisa.addKeyListener(new KeyAdapter() {
 			@Override
 			//Evento que se ejecuta cuando se deja de presionar (Empezas a escribir y luego dejas de escribir)
@@ -133,9 +162,10 @@ public class SwingConversorMonedas {
 				if(textBoxDinero.isEmpty()) {
 
 				}
-				else if(Metodos.esNumero(textBoxDinero)) {
+				else if(Metodos.esNumero(textBoxDinero) && !Metodos.contieneLetra(textBoxDinero)) {
 					//lblMensajeError.setText("SI ES UN NUMERO");
 					lblMensajeError.setVisible(false);//Ocultamos el texto
+					lblMensajeError_1.setVisible(false);//Ocultamos el texto
 					conversionDivisas(conversion_a_Peso,txtCantidadPesosDivisa, txtCantidadDivisaPesos, convertirDinero, cbxOpciones);
 				}
 				else {
@@ -143,12 +173,12 @@ public class SwingConversorMonedas {
 				}
 			}
 		});
-		txtCantidadPesosDivisa.setBounds(224, 69, 155, 20);
-		frame.getContentPane().add(txtCantidadPesosDivisa);
 		txtCantidadPesosDivisa.setColumns(10);
 
 		//Textbox que almacena la cantidad de divisa a convertir a pesos.
 		txtCantidadDivisaPesos = new JTextField();
+		txtCantidadDivisaPesos.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtCantidadDivisaPesos.setBounds(501, 133, 185, 20);
 		txtCantidadDivisaPesos.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -157,10 +187,11 @@ public class SwingConversorMonedas {
 				if(textBoxDinero.isEmpty()) {
 
 				}
-				else if(Metodos.esNumero(textBoxDinero)) {
+				else if(Metodos.esNumero(textBoxDinero) && !Metodos.contieneLetra(textBoxDinero)) {
 					//lblMensajeError.setText("SI ES UN NUMERO");
 					lblMensajeError_1.setVisible(false);//Ocultamos el texto
 					conversionDivisas(!conversion_a_Peso, txtCantidadDivisaPesos,txtCantidadPesosDivisa, convertirDinero, cbxConversionInversa);
+					lblMensajeError.setVisible(false);
 				}
 				else {
 					lblMensajeError_1.setVisible(true);
@@ -168,15 +199,61 @@ public class SwingConversorMonedas {
 			}
 		});
 		txtCantidadDivisaPesos.setColumns(10);
-		txtCantidadDivisaPesos.setBounds(482, 69, 155, 20);
-		frame.getContentPane().add(txtCantidadDivisaPesos);
 		
-		JLabel lblNewLabel_1 = new JLabel("<-- -->");
-		lblNewLabel_1.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(388, 72, 84, 38);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblSeleccioneElTipo_1 = new JLabel("Tipo de conversión");
+		lblSeleccioneElTipo_1.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblSeleccioneElTipo_1.setBounds(384, 119, 119, 14);
+		lblSeleccioneElTipo_1.setVerticalAlignment(SwingConstants.TOP);
+		lblSeleccioneElTipo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblDivisa = new JLabel("Divisa");
+		lblDivisa.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblDivisa.setBounds(384, 136, 107, 17);
+		lblDivisa.setVerticalAlignment(SwingConstants.TOP);
+		lblDivisa.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JTextPane txtpnConversinDePesos = new JTextPane();
+		txtpnConversinDePesos.setBounds(33, 71, 310, 110);
+		txtpnConversinDePesos.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtpnConversinDePesos.setEditable(false);
+		txtpnConversinDePesos.setForeground(new Color(255, 255, 255));
+		txtpnConversinDePesos.setBackground(new Color(153, 51, 0));
+		txtpnConversinDePesos.setText("Pesos a divisa");
+		txtpnConversinDePesos.setToolTipText("");
+		
+		JTextPane txtpnConversinDeDivisa = new JTextPane();
+		txtpnConversinDeDivisa.setFont(new Font("Arial", Font.PLAIN, 11));
+		txtpnConversinDeDivisa.setBounds(384, 71, 320, 110);
+		txtpnConversinDeDivisa.setBackground(new Color(245, 222, 179));
+		txtpnConversinDeDivisa.setEditable(false);
+		txtpnConversinDeDivisa.setToolTipText("");
+		txtpnConversinDeDivisa.setText("Divisa a pesos.");
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(lblSeleccioneElTipo);
+		frame.getContentPane().add(cbxOpciones);
+		frame.getContentPane().add(txtCantidadPesosDivisa);
+		frame.getContentPane().add(lblMensajeError);
+		frame.getContentPane().add(lblNewLabel);
+		frame.getContentPane().add(txtpnConversinDePesos);
+		frame.getContentPane().add(lblSeleccioneElTipo_1);
+		frame.getContentPane().add(lblDivisa);
+		frame.getContentPane().add(txtCantidadDivisaPesos);
+		frame.getContentPane().add(lblMensajeError_1);
+		frame.getContentPane().add(cbxConversionInversa);
+		frame.getContentPane().add(txtpnConversinDeDivisa);
+		
+		JButton btnNewButton = new JButton("Regresar");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBackground(new Color(255, 182, 193));
+		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConversorDisenio formPrincipal = new ConversorDisenio();
+				formPrincipal.frame.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(33, 11, 97, 27);
+		frame.getContentPane().add(btnNewButton);
 	}
 
 	/**
@@ -192,12 +269,11 @@ public class SwingConversorMonedas {
 			if(opciones.getSelectedItem().toString() == metodo.get(opc)) {
 				//JOptionPane.showMessageDialog(null,"Lo que has seleccionado es: "+metodo.get(opc)+" con el indice: "+opc);
 				try {
-					String resultadoConversion = " "+monedaConvertir .convertirMoneda(convertir_a_Peso,opc, Float.parseFloat(textBoxOrigen.getText().toString()));//Origen da valor a convertir
+					String resultadoConversion = String.format("%.5f", monedaConvertir .convertirMoneda(convertir_a_Peso,opc, Float.parseFloat(textBoxOrigen.getText().toString())));//Origen da valor a convertir
 					textBoxDestino.setText(resultadoConversion);//Destino es el que almacena el resultado de la conversión.
 				} catch (NumberFormatException | MonedaException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "UPS "+e1.getMessage());
+					JOptionPane.showMessageDialog(null, "Asegúrese de ingresar un número.", "Error en conversión "+e1.getMessage(), 1);
 				}
 			}
 		}

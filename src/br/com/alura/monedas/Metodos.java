@@ -12,18 +12,18 @@ public class Metodos {
 	 */
 	public static boolean contieneLetra(String palabra){
 		// Expresión regular para identificar si hay una letra en el texto
-        String regex = "[A-Za-z]";
+		String regex = "[A-Za-z]";
 
-        // Compilar la expresión regular en un patrón
-        Pattern pattern = Pattern.compile(regex);
+		// Compilar la expresión regular en un patrón
+		Pattern pattern = Pattern.compile(regex);
 
-        // Crear un objeto Matcher para buscar coincidencias en el texto
-        Matcher matcher = pattern.matcher(palabra);
+		// Crear un objeto Matcher para buscar coincidencias en el texto
+		Matcher matcher = pattern.matcher(palabra);
 
-        // Devolver true si se encuentra al menos una letra en el texto (False si no)
-        return matcher.find();
+		// Devolver true si se encuentra al menos una letra en el texto (False si no)
+		return matcher.find();
 	}
-	
+
 	/**
 	 * Este método define si una cadena de texto contiene un espacio en blanco.
 	 * @param palabra
@@ -31,34 +31,31 @@ public class Metodos {
 	 */
 	public static boolean contieneEspacio(String palabra){
 		// Expresión regular para identificar si hay un espacio en blanco en el texto
-        String regex = "\\s";
+		String regex = "\\s";
 
-        // Compilar la expresión regular en un patrón
-        Pattern pattern = Pattern.compile(regex);
+		// Compilar la expresión regular en un patrón
+		Pattern pattern = Pattern.compile(regex);
 
-        // Crear un objeto Matcher para buscar coincidencias en el texto
-        Matcher matcher = pattern.matcher(palabra);
+		// Crear un objeto Matcher para buscar coincidencias en el texto
+		Matcher matcher = pattern.matcher(palabra);
 
-        // Devolver true si se encuentra al menos un espacio en blanco en el texto
-        return matcher.find();
+		// Devolver true si se encuentra al menos un espacio en blanco en el texto
+		return matcher.find();
 	}
-	
+
 	/**
 	 * Este método define si una cadena de caracteres contiene solo números.
 	 * @param palabra
 	 * @return True SI la cadena de caracteres contiene SOLO numeros. False si NO contiene SOLO numeros.
 	 */
 	public static boolean esNumero(String palabra){
-		// Expresión regular para identificar si hay un espacio en blanco en el texto
-        String regex = "[^0-9.]";
+		try {
+			Float.parseFloat(palabra);
+		}catch(NumberFormatException | NullPointerException e) {
+			return false;//Si no se realiza el parseo es porque NO es un número.
+		}
 
-        // Compilar la expresión regular en un patrón
-        Pattern pattern = Pattern.compile(regex);
-
-        // Crear un objeto Matcher para buscar coincidencias en el texto
-        Matcher matcher = pattern.matcher(palabra);
-
-        // Devolver FALSE si se encuentra al menos un carácter que no sea número ni punto en el texto
-        return !matcher.find();
+		// Devolver FALSE si se encuentra al menos un caracter que no sea número ni punto en el texto, y retorna lo inverso (TRUE).
+		return true;
 	}
 }

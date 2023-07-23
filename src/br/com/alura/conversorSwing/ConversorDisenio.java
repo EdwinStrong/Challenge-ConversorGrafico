@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class ConversorDisenio {
 
-	private JFrame frame;
+	protected JFrame frame;
 	/**
 	 * Launch the application.
 	 */
