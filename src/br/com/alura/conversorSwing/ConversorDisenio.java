@@ -18,12 +18,12 @@ public class ConversorDisenio {
 	/**
 	 * Launch the application.
 	 */
-	
+	protected static ConversorDisenio window = new ConversorDisenio();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ConversorDisenio window = new ConversorDisenio();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,9 +78,9 @@ public class ConversorDisenio {
 					conversor.frmConversorDeMonedas.setVisible(true);//Abrir el form
 				}
 				else {
-					SwingConversorTemperatura conversor = new SwingConversorTemperatura();
-					conversor.setVisible(true);//Abrir el form
+					SwingConversorTemperatura.frameConversorTemperatura.setVisible(true);
 				}
+				window.frame.setVisible(false);
 			}
 		});
 			

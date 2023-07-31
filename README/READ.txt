@@ -1,0 +1,35 @@
+******Esta es la versión con interfaz gráfica JAVA swing.           			AUTOR: Edwin Alexander Pacheco Guzmán
+
+La conversión realizada es con valores fijos, utilizando la siguiente taza para la moneda:
+
+1 pesos son 0.0584233 dólares, 
+1 pesos son 0.0534826 euros, 
+1 pesos son 0.0458863 libras esterlinas, 
+1 pesos son 8.44455 yen japonés, 
+1 pesos son 76.81 won coreanos.
+
+Y para la temperatura, se usaron las siguientes fórmulas de conversión: 
+
+De Celsius a Farenheit: Celsius * 1.8 + 32
+De Celsius a Kelvin: Celsius + 273.15
+De Celsius a Rankine: 1.8 * (Celsius  + 273.15)
+
+De Farenheit a Celsius: (Farenheit - 32)/1.8
+De Farenheit a Kelvin: (Farenheit + 459.67)/1.8
+De Fahrenheit a Rankine: Farenheit  + 459.67
+
+De Kelvin a Celsius: (Kelvin - 273.15)
+De Kelvin a Farenheit: (Kelvin * 9 - 459.67)
+De Kelvin a Rankine: 1.8 * Kelvin 	
+
+De Rankine a Fahrenheit: Rankine - 459.67
+De Rankine a Celsius: (Rankine - 491.67) / 1.8
+De Rankine a Kelvin: Rankine / 1.8
+
+
+
+
+
+
+		
+		

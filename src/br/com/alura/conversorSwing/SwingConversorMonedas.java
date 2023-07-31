@@ -246,8 +246,8 @@ public class SwingConversorMonedas {
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConversorDisenio formPrincipal = new ConversorDisenio();
-				formPrincipal.frame.setVisible(true);
+				frmConversorDeMonedas.setVisible(false);
+				ConversorDisenio.window.frame.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(33, 11, 97, 27);

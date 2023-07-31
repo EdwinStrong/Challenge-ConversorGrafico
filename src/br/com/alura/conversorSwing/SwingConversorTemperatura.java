@@ -31,7 +31,7 @@ public class SwingConversorTemperatura extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtTemperatura1;
 	private JTextField txtTemperatura2;
-
+	protected static SwingConversorTemperatura frameConversorTemperatura = new SwingConversorTemperatura();
 	/**
 	 * Launch the application.
 	 */
@@ -39,8 +39,7 @@ public class SwingConversorTemperatura extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SwingConversorTemperatura frame = new SwingConversorTemperatura();
-					frame.setVisible(true);
+					frameConversorTemperatura.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,7 +54,7 @@ public class SwingConversorTemperatura extends JFrame {
 		setTitle("Conversor de temperatura");
 
 		//Variable que almacena los tipos de temperatura que maneja el sistema (Se debe actualizar según cada tipo de temperatura nuevo agregado en la clase).
-		String[] opcionesConversion = {"Celsius", "Farenheit", "Kelvin"};
+		String[] opcionesConversion = {"Celsius", "Farenheit", "Kelvin", "Rankine"};
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 454, 300);
@@ -99,8 +98,8 @@ public class SwingConversorTemperatura extends JFrame {
 		btnRegresar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConversorDisenio formPrincipal = new ConversorDisenio();
-				formPrincipal.frame.setVisible(true);
+				frameConversorTemperatura.setVisible(false);
+				ConversorDisenio.window.frame.setVisible(true);
 			}
 		});
 		btnRegresar.setBounds(11, 16, 89, 23);
@@ -156,22 +155,10 @@ public class SwingConversorTemperatura extends JFrame {
 				}
 			}
 		});
-
-		//Accción del combobox para que cuando se escoja una opción, realice una conversión.
-		cbxOpciones1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
-				if(Metodos.esNumero(txtTemperatura2.getText())) {
-					realizarConversion(cbxOpciones2, cbxOpciones1, txtTemperatura2, txtTemperatura1);
-					Metodos.ocultarLabel(lblError1, lblError2);
-				}else {
-					Metodos.mostrarLabel(lblError1);
-				}
-				
-			}
-		});
-
-		//Accción del combobox para que cuando se escoja una opción, realice una conversión.
-		cbxOpciones2.addActionListener(new ActionListener() {
+		
+		//Acción que harán los combobox para manejar la conversión de temperaturas.
+		ActionListener action = new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(Metodos.esNumero(txtTemperatura1.getText())) {
 					realizarConversion(cbxOpciones1, cbxOpciones2, txtTemperatura1, txtTemperatura2);
@@ -180,7 +167,11 @@ public class SwingConversorTemperatura extends JFrame {
 					Metodos.mostrarLabel(lblError2);
 				}
 			}
-		});
+		};
+		
+		//Accción de los combobox para que, cuando se escoja una opción, realice una conversión.
+		cbxOpciones1.addActionListener(action);
+		cbxOpciones2.addActionListener(action);
 	}
 
 	/**
