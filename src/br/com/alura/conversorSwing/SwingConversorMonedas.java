@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.alura.excepciones.MonedaException;
-import br.com.alura.monedas.Metodos;
+import br.com.alura.metodosGenerales.Metodos;
 import br.com.alura.monedas.MonedaNombreEnum;
 import br.com.alura.monedas.MonedaValor;
 
@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 
 public class SwingConversorMonedas {
 
-	protected JFrame frame;
+	protected JFrame frmConversorDeMonedas;
 	private JTextField txtCantidadPesosDivisa;
 	private JTextField txtCantidadDivisaPesos;
 
@@ -41,7 +41,7 @@ public class SwingConversorMonedas {
 			public void run() {
 				try {
 					SwingConversorMonedas window = new SwingConversorMonedas();
-					window.frame.setVisible(true);
+					window.frmConversorDeMonedas.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,12 +82,12 @@ public class SwingConversorMonedas {
 		}
 
 		//Frame
-		frame = new JFrame();
-		frame.getContentPane().setFont(new Font("Arial", Font.PLAIN, 11));
-		frame.getContentPane().setBackground(new Color(0, 102, 0));
-		frame.setBounds(100, 100, 740, 345);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Conversor de monedas.");
+		frmConversorDeMonedas = new JFrame();
+		frmConversorDeMonedas.getContentPane().setFont(new Font("Arial", Font.PLAIN, 11));
+		frmConversorDeMonedas.getContentPane().setBackground(new Color(255, 245, 238));
+		frmConversorDeMonedas.setBounds(100, 100, 740, 345);
+		frmConversorDeMonedas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmConversorDeMonedas.setTitle("Conversor de monedas");
 
 		//Label
 		JLabel lblNewLabel = new JLabel("Pesos");
@@ -131,7 +131,7 @@ public class SwingConversorMonedas {
 		});
 		cbxConversionInversa.setFont(new Font("Arial", Font.PLAIN, 11));
 		cbxConversionInversa.setBounds(501, 111, 185, 22);
-		cbxConversionInversa.setBackground(new Color(245, 255, 250));
+		cbxConversionInversa.setBackground(new Color(255, 255, 0));
 		cbxConversionInversa.setModel(new DefaultComboBoxModel<>(opcionesConversionInversa.toArray()));
 
 		//cbx de pesos a divisa
@@ -164,12 +164,11 @@ public class SwingConversorMonedas {
 				}
 				else if(Metodos.esNumero(textBoxDinero) && !Metodos.contieneLetra(textBoxDinero)) {
 					//lblMensajeError.setText("SI ES UN NUMERO");
-					lblMensajeError.setVisible(false);//Ocultamos el texto
-					lblMensajeError_1.setVisible(false);//Ocultamos el texto
+					Metodos.ocultarLabel(lblMensajeError_1, lblMensajeError);
 					conversionDivisas(conversion_a_Peso,txtCantidadPesosDivisa, txtCantidadDivisaPesos, convertirDinero, cbxOpciones);
 				}
 				else {
-					lblMensajeError.setVisible(true);
+					Metodos.mostrarLabel(lblMensajeError);
 				}
 			}
 		});
@@ -189,12 +188,11 @@ public class SwingConversorMonedas {
 				}
 				else if(Metodos.esNumero(textBoxDinero) && !Metodos.contieneLetra(textBoxDinero)) {
 					//lblMensajeError.setText("SI ES UN NUMERO");
-					lblMensajeError_1.setVisible(false);//Ocultamos el texto
 					conversionDivisas(!conversion_a_Peso, txtCantidadDivisaPesos,txtCantidadPesosDivisa, convertirDinero, cbxConversionInversa);
-					lblMensajeError.setVisible(false);
+					Metodos.ocultarLabel(lblMensajeError_1, lblMensajeError);
 				}
 				else {
-					lblMensajeError_1.setVisible(true);
+					Metodos.mostrarLabel(lblMensajeError_1);
 				}
 			}
 		});
@@ -217,34 +215,34 @@ public class SwingConversorMonedas {
 		txtpnConversinDePesos.setFont(new Font("Arial", Font.PLAIN, 11));
 		txtpnConversinDePesos.setEditable(false);
 		txtpnConversinDePesos.setForeground(new Color(255, 255, 255));
-		txtpnConversinDePesos.setBackground(new Color(153, 51, 0));
+		txtpnConversinDePesos.setBackground(new Color(153, 153, 204));
 		txtpnConversinDePesos.setText("Pesos a divisa");
 		txtpnConversinDePesos.setToolTipText("");
 		
 		JTextPane txtpnConversinDeDivisa = new JTextPane();
 		txtpnConversinDeDivisa.setFont(new Font("Arial", Font.PLAIN, 11));
 		txtpnConversinDeDivisa.setBounds(384, 71, 320, 110);
-		txtpnConversinDeDivisa.setBackground(new Color(245, 222, 179));
+		txtpnConversinDeDivisa.setBackground(new Color(240, 255, 240));
 		txtpnConversinDeDivisa.setEditable(false);
 		txtpnConversinDeDivisa.setToolTipText("");
 		txtpnConversinDeDivisa.setText("Divisa a pesos.");
-		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(lblSeleccioneElTipo);
-		frame.getContentPane().add(cbxOpciones);
-		frame.getContentPane().add(txtCantidadPesosDivisa);
-		frame.getContentPane().add(lblMensajeError);
-		frame.getContentPane().add(lblNewLabel);
-		frame.getContentPane().add(txtpnConversinDePesos);
-		frame.getContentPane().add(lblSeleccioneElTipo_1);
-		frame.getContentPane().add(lblDivisa);
-		frame.getContentPane().add(txtCantidadDivisaPesos);
-		frame.getContentPane().add(lblMensajeError_1);
-		frame.getContentPane().add(cbxConversionInversa);
-		frame.getContentPane().add(txtpnConversinDeDivisa);
+		frmConversorDeMonedas.getContentPane().setLayout(null);
+		frmConversorDeMonedas.getContentPane().add(lblSeleccioneElTipo);
+		frmConversorDeMonedas.getContentPane().add(cbxOpciones);
+		frmConversorDeMonedas.getContentPane().add(txtCantidadPesosDivisa);
+		frmConversorDeMonedas.getContentPane().add(lblMensajeError);
+		frmConversorDeMonedas.getContentPane().add(lblNewLabel);
+		frmConversorDeMonedas.getContentPane().add(txtpnConversinDePesos);
+		frmConversorDeMonedas.getContentPane().add(lblSeleccioneElTipo_1);
+		frmConversorDeMonedas.getContentPane().add(lblDivisa);
+		frmConversorDeMonedas.getContentPane().add(txtCantidadDivisaPesos);
+		frmConversorDeMonedas.getContentPane().add(lblMensajeError_1);
+		frmConversorDeMonedas.getContentPane().add(cbxConversionInversa);
+		frmConversorDeMonedas.getContentPane().add(txtpnConversinDeDivisa);
 		
 		JButton btnNewButton = new JButton("Regresar");
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(255, 182, 193));
+		btnNewButton.setBackground(new Color(240, 248, 255));
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -253,7 +251,7 @@ public class SwingConversorMonedas {
 			}
 		});
 		btnNewButton.setBounds(33, 11, 97, 27);
-		frame.getContentPane().add(btnNewButton);
+		frmConversorDeMonedas.getContentPane().add(btnNewButton);
 	}
 
 	/**

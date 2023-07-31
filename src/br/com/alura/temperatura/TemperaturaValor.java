@@ -1,8 +1,13 @@
 package br.com.alura.temperatura;
 
-public class TemperaturaValor {
+import br.com.alura.excepciones.MonedaException;
+import br.com.alura.excepciones.TemperaturaException;
 
-	private String[] tipoTemperatura = {"Celsius", "Farenheit", "Kelvin"};
+/**
+ * Esta clase se encarga de definir las correspondientes fórmulas de conversión entre temperaturas.
+ */
+
+public class TemperaturaValor {
 
 	/**
 	 * Este método se encarga de aplicar las fórmulas respectivas para realizar las diferentes conversiones entre temperaturas.
@@ -10,8 +15,9 @@ public class TemperaturaValor {
 	 * @param valorTemperatura Esta variable es la que almacena el valor de la temperatura a convertir.
 	 * @return
 	 * @throws MonedaException 
+	 * @throws TemperaturaException 
 	 */
-	public Float conversion(String tipoConversion, Float valorTemperatura){
+	public Float conversion(String tipoConversion, Float valorTemperatura) throws TemperaturaException{
 		Float resultado = 0f;
 
 		switch (tipoConversion) {
@@ -43,7 +49,8 @@ public class TemperaturaValor {
 			resultado = (float) (valorTemperatura * 9 - 459.67);
 			//System.out.println("kelvin a farenheit");
 			break;
-
+		default:
+			throw new TemperaturaException("Error");
 		}
 		return resultado;
 	}

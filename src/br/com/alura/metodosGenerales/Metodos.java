@@ -1,7 +1,9 @@
-package br.com.alura.monedas;
+package br.com.alura.metodosGenerales;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.JLabel;
 
 public class Metodos {
 
@@ -57,5 +59,29 @@ public class Metodos {
 
 		// Devolver FALSE si se encuentra al menos un caracter que no sea número ni punto en el texto, y retorna lo inverso (TRUE).
 		return true;
+	}
+	
+	/**
+	 * Este método se encarga de ocultar un label.
+	 * @param label1 Es el label del mensaje del error a ocultar.
+	 */
+	public static void ocultarLabel(JLabel label1) {
+		label1.setVisible(false);
+	}
+	/**
+	 * Este método se encarga de ocultar dos label.
+	 * @param label1 Es el primer label del mensaje del error a ocultar.
+	 * @param label2 Es el segundo label del mensaje del error a ocultar.
+	 */
+	public static void ocultarLabel(JLabel label1, JLabel label2) {
+		label1.setVisible(false);
+		label2.setVisible(false);
+	}
+	/**
+	 *  Este método se encarga de mostrar un label.
+	 * @param label1 Es el label a mostrar.
+	 */
+	public static void mostrarLabel(JLabel label1) {
+		label1.setVisible(true);
 	}
 }
