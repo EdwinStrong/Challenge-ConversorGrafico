@@ -69,7 +69,7 @@ public class ConversorDisenio {
 				}
 				else {
 					SwingConversorTemperatura conversor = new SwingConversorTemperatura();
-					conversor.frame.setVisible(true);//Abrir el form
+					conversor.setVisible(true);//Abrir el form
 				}
 			}
 		});
